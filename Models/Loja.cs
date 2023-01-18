@@ -9,25 +9,50 @@ namespace RadarWebApi.Models
     public class Loja
     {
 
-        [Display(Name = "Código")]
         [Column("Id")]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; } = default!;
 
-        [Display(Name = "Nome")]
+
         [Column("Nome")]
         public string Nome { get; set; } = default!;
 
-        [Display(Name = "Observaçao")]
         [Column("Observacao")]
         public string? Observacao { get; set; }
 
-        [Display(Name = "Endereço")]
-        [Column("Endereco")]
-        public string EnderecoId { get; set; } = default!;
+        [Column("CEP")]
+        public string CEP { get; set; } = default!;
 
-        public Endereco? Endereco { get; set; }
+        [Column("Logradouro")]
+        public string Logradouro { get; set; } = default!;
+
+        [Column("Numero")]
+        public string Numero { get; set; } = default!;
+
+
+        [Column("Complemento")]
+        public string Complemento { get; set; } = default!;
+
+
+        [Column("Bairro")]
+        public string Bairro { get; set; } = default!;
+
+
+        [Column("Cidade")]
+        public string Cidade { get; set; } = default!;
+
+
+        [Column("Estado")]
+        public string Estado { get; set; } = default!;
+
+        [Column("Latitude")]
+        public string Latitude { get; set; } = default!;
+
+
+
+        [Column("Longitude")]
+        public string Longitude { get; set; } = default!;
 
 
     }

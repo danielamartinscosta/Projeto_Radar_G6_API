@@ -17,7 +17,6 @@ namespace RadarWebApi.Models
 
         public string Email { get; set; } = default!;
 
-
         public string Senha { get; set; } = default!;
 
         public string Permissao { get; set; } = default!;
