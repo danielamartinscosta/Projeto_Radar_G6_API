@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using RadarG6.Context;
 using RadarG6.Repositorios.Interfaces;
+using RadarG6.Servicos;
+using RadarWebApi.DTOs;
 using RadarWebApi.Models;
 
 namespace RadarG6_webAPI.Controllers;
@@ -39,8 +34,9 @@ namespace RadarG6_webAPI.Controllers;
 
         // POST: Produtos
         [HttpPost("")]
-        public async Task<IActionResult> Create([FromBody] Produto produto)
+        public async Task<IActionResult> Create([FromBody] ProdutoDTO produtoDTO)
         {
+            var produto = BuilderServico<Produto>.Builder(produtoDTO);
             await _servico.IncluirAsync(produto);
             return StatusCode(201, produto);
         }
@@ -63,7 +59,7 @@ namespace RadarG6_webAPI.Controllers;
             return StatusCode(200, produtoDb);
         }
 
-        // POST: Produtos/5
+        // DELETE: Produtos/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {

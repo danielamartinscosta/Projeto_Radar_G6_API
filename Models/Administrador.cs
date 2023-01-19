@@ -22,6 +22,7 @@ namespace RadarWebApi.Models
         public string Permissao { get; set; } = default!;
 
 
+
     }
 
 

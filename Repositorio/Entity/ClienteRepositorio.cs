@@ -3,7 +3,7 @@ using RadarG6.Context;
 using RadarG6.Repositorios.Interfaces;
 using RadarWebApi.Models;
 
-namespace api.Repositorios.Entity;
+namespace Radar.Repositorios;
 
 public class ClienteRepositorio : IServico<Cliente>
 {

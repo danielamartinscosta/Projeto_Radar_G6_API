@@ -1,9 +1,12 @@
-
-//using Microsoft.EntityFrameworkCore;
-//using RadarG6.Context;
-
-using api.Repositorios.Entity;
+using System.Text;
+using api.Repositorios.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.IdentityModel.Tokens;
+using Radar.Repositorios;
 using RadarG6.Repositorios.Interfaces;
+using RadarG6.Servicos.Autenticacao;
 using RadarWebApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,19 +15,51 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-/*builder.Services.AddDbContext<RadarContexto>(options =>
-    {
-
-        var conexao = Environment.GetEnvironmentVariable("DATABASE_URL_RADAR_G6");
-        if (conexao is null) conexao = "server=localhost;database=radar_g6;uid=root;pwd=2411dmcroot*";
-        options.UseMySql(conexao, ServerVersion.AutoDetect(conexao));
-
-    });*/
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IServico<Cliente>, ClienteRepositorio>();
+builder.Services.AddScoped<IServicoAdm<Administrador>, AdministradorRepositorio>();
+builder.Services.AddScoped<IServico<Campanha>, CampanhaRepositorio>();
+builder.Services.AddScoped<IServico<Produto>, ProdutoRepositorio>();
+builder.Services.AddScoped<IServico<Pedido>, PedidoRepositorio>();
+builder.Services.AddScoped<IServico<PedidoProduto>, PedidoProdutoRepositorio>();
+builder.Services.AddScoped<IServico<Loja>, LojaRepositorio>();
+builder.Services.AddScoped<IServico<PosicaoProduto>, PosicaoProdutoRepositorio>();
+
+builder.Services.AddMvc(config =>
+{
+    var policy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+    config.Filters.Add(new AuthorizeFilter(policy));
+});
+
+
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(x =>
+{
+    x.RequireHttpsMetadata = false;
+    x.SaveToken = true;
+    x.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(TokenJWT.Key)),
+        ValidateIssuer = false,
+        ValidateAudience = false
+    };
+});
+
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("adm", policy => policy.RequireClaim("adm"));
+    options.AddPolicy("editor", policy => policy.RequireClaim("editor"));
+});
 
 var app = builder.Build();
 
@@ -43,6 +78,8 @@ app.UseCors(x => x
     .AllowAnyHeader()
 );
 
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
