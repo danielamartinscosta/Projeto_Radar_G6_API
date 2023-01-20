@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RadarG6.Repositorios.Interfaces;
 using RadarG6.Servicos;
@@ -7,6 +8,7 @@ using RadarWebApi.Models;
 namespace RadarG6_webAPI.Controllers;
 
 [Route("campanha")]
+[ApiController]
 
 public class CampanhasController : ControllerBase
 {
@@ -19,6 +21,7 @@ public class CampanhasController : ControllerBase
     // GET: Campanhas
 
     [HttpGet("")]
+    [Authorize(Roles = "adm,editor")]
     public async Task<IActionResult> Index()
     {
         var campanha = await _servico.TodosAsync();
@@ -26,6 +29,7 @@ public class CampanhasController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [Authorize(Roles = "adm,editor")]
     public async Task<IActionResult> Details([FromRoute] int id)
     {
         var campanha = (await _servico.TodosAsync()).Find(c => c.Id == id);
@@ -35,6 +39,7 @@ public class CampanhasController : ControllerBase
 
     // POST: Campanhas
     [HttpPost("")]
+    [Authorize(Roles = "adm,editor")]
     public async Task<IActionResult> Create([FromBody] CampanhaDTO campanhaDTO)
     {
         var campanha = BuilderServico<Campanha>.Builder(campanhaDTO);
@@ -45,6 +50,7 @@ public class CampanhasController : ControllerBase
 
     // PUT: Campanhas/5
     [HttpPut("{id}")]
+    [Authorize(Roles = "adm")]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] Campanha campanha)
     {
         if (id != campanha.Id)
@@ -62,6 +68,7 @@ public class CampanhasController : ControllerBase
 
     // DELETE: Campanhas/5
     [HttpDelete("{id}")]
+    [Authorize(Roles = "adm")]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
         var campanhaDb = (await _servico.TodosAsync()).Find(c => c.Id == id);

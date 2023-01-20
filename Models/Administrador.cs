@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RadarWebApi.Models
 {
-    [Table("Administrador")]
+    [Table("Administradores")]
     public class Administrador
     {
 

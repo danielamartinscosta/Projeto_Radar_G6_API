@@ -1,8 +1,6 @@
 using api.Repositorios.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RadarG6.DTOs;
-using RadarG6.Repositorios.Interfaces;
 using RadarG6.Servicos;
 using RadarG6.Servicos.Autenticacao;
 using RadarWebApi.Models;

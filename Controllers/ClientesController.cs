@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RadarG6.Repositorios.Interfaces;
 using RadarG6.Servicos;
@@ -21,6 +22,7 @@ namespace RadarG6_webAPI.Controllers;
         // GET: Clientes
 
         [HttpGet("")]
+        [Authorize(Roles = "adm,editor")]
         public async Task<IActionResult> Index()
         {
             var clientes = await _servico.TodosAsync();
@@ -28,6 +30,7 @@ namespace RadarG6_webAPI.Controllers;
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "adm,editor")]
         public async Task<IActionResult> Details([FromRoute] int id)
         {
             var cliente = (await _servico.TodosAsync()).Find(c => c.Id == id);
@@ -37,6 +40,7 @@ namespace RadarG6_webAPI.Controllers;
 
         // POST: Clientes
         [HttpPost("")]
+        [Authorize(Roles = "adm,editor")]
         public async Task<IActionResult> Create([FromBody] ClienteDTO clienteDTO)
         {
             var cliente = BuilderServico<Cliente>.Builder(clienteDTO);
@@ -47,6 +51,7 @@ namespace RadarG6_webAPI.Controllers;
 
         // PUT: Clientes/5
         [HttpPut("{id}")]
+        [Authorize(Roles = "adm")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] Cliente cliente)
         {
             if (id != cliente.Id)
@@ -64,6 +69,7 @@ namespace RadarG6_webAPI.Controllers;
 
         // DELETE: Clientes/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "adm")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var clienteDb = (await _servico.TodosAsync()).Find(c => c.Id == id);

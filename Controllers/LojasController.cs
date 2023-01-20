@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RadarG6.Repositorios.Interfaces;
 using RadarG6.Servicos;
@@ -8,6 +9,7 @@ namespace RadarG6_webAPI.Controllers;
 
 
     [Route("lojas")]
+    [ApiController]
     public class LojasController : ControllerBase
     {
         private IServico<Loja> _servico;
@@ -19,6 +21,7 @@ namespace RadarG6_webAPI.Controllers;
         // GET: Lojas
 
         [HttpGet("")]
+        [Authorize(Roles = "adm,editor")]
         public async Task<IActionResult> Index()
         {
             var lojas = await _servico.TodosAsync();
@@ -26,6 +29,7 @@ namespace RadarG6_webAPI.Controllers;
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "adm,editor")]
         public async Task<IActionResult> Details([FromRoute] int id)
         {
             var loja = (await _servico.TodosAsync()).Find(c => c.Id == id);
@@ -35,6 +39,7 @@ namespace RadarG6_webAPI.Controllers;
 
         // POST: Lojas
         [HttpPost("")]
+        [Authorize(Roles = "adm,editor")]
         public async Task<IActionResult> Create([FromBody] LojaDTO lojaDTO)
         {
             var loja = BuilderServico<Loja>.Builder(lojaDTO);
@@ -45,6 +50,7 @@ namespace RadarG6_webAPI.Controllers;
 
         // PUT: Lojas/5
         [HttpPut("{id}")]
+        [Authorize(Roles = "adm")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] Loja loja)
         {
             if (id != loja.Id)
@@ -62,6 +68,7 @@ namespace RadarG6_webAPI.Controllers;
 
         // DELETE: Lojas/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "adm")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var lojaDb = (await _servico.TodosAsync()).Find(c => c.Id == id);
@@ -69,7 +76,7 @@ namespace RadarG6_webAPI.Controllers;
             {
                 return StatusCode(404, new
                 {
-                    Mensagem = "A loja informado não existe"
+                    Mensagem = "A loja informada não existe"
                 });
             }
 

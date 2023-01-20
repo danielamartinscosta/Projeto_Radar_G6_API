@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RadarG6.Repositorios.Interfaces;
 using RadarG6.Servicos;
@@ -7,6 +8,7 @@ using RadarWebApi.Models;
 namespace RadarG6_webAPI.Controllers;
 
 [Route("posicoesProdutos")]
+[ApiController]
 public class PosicoesProdutosController : ControllerBase
 {
     private IServico<PosicaoProduto> _servico;
@@ -19,6 +21,7 @@ public class PosicoesProdutosController : ControllerBase
     // GET: PosicoesProdutos
 
     [HttpGet("")]
+    [Authorize(Roles = "adm,editor")]
     public async Task<IActionResult> Index()
     {
         var posicaoproduto = await _servico.TodosAsync();
@@ -26,6 +29,7 @@ public class PosicoesProdutosController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [Authorize(Roles = "adm,editor")]
     public async Task<ActionResult> Details([FromRoute] int id)
     {
         var posicaoproduto = (await _servico.TodosAsync()).Find(c => c.Id == id);
@@ -35,6 +39,7 @@ public class PosicoesProdutosController : ControllerBase
 
     // POST: PosicoesProdutos
     [HttpPost("")]
+    [Authorize(Roles = "adm,editor")]
     public async Task<IActionResult> Create([FromBody] PosicaoProdutoDTO posicaoProdutoDTO)
     {
         var posicaoProduto = BuilderServico<PosicaoProduto>.Builder(posicaoProdutoDTO);
@@ -45,6 +50,7 @@ public class PosicoesProdutosController : ControllerBase
 
     // PUT: PosicoesProdutos/5
     [HttpPut("{id}")]
+    [Authorize(Roles = "adm")]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] PosicaoProduto posicaoproduto)
     {
         if (id != posicaoproduto.Id)
@@ -62,6 +68,7 @@ public class PosicoesProdutosController : ControllerBase
 
     // DELETE: PosicoesProdutos/5
     [HttpDelete("{id}")]
+    [Authorize(Roles = "adm")]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
         var posicaoprodutoDb = (await _servico.TodosAsync()).Find(c => c.Id == id);

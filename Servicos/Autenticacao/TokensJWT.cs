@@ -1,10 +1,8 @@
-
-
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using RadarG6.DTOs;
+using RadarWebApi.Models;
 
 namespace RadarG6.Servicos.Autenticacao;
 

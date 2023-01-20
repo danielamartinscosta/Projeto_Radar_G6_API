@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RadarG6.Repositorios.Interfaces;
 using RadarG6.Servicos;
@@ -8,6 +9,7 @@ namespace RadarG6_webAPI.Controllers;
 
 
 [Route("pedidos")]
+[ApiController]
     public class PedidosController : ControllerBase
     {
         private IServico<Pedido> _servico;
@@ -20,6 +22,7 @@ namespace RadarG6_webAPI.Controllers;
         // GET: Pedidos
 
         [HttpGet("")]
+        [Authorize(Roles = "adm,editor")]
         public async Task<IActionResult> Index()
         {
             var pedidos = await _servico.TodosAsync();
@@ -27,6 +30,7 @@ namespace RadarG6_webAPI.Controllers;
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "adm,editor")]
         public async Task<IActionResult> Details([FromRoute] int id)
         {
             var pedido = (await _servico.TodosAsync()).Find(c => c.Id == id);
@@ -36,6 +40,7 @@ namespace RadarG6_webAPI.Controllers;
 
         // POST: Pedidos
         [HttpPost("")]
+        [Authorize(Roles = "adm,editor")]
         public async Task<IActionResult> Create([FromBody] PedidoDTO pedidoDTO)
         {
             var pedido = BuilderServico<Pedido>.Builder(pedidoDTO);
@@ -46,6 +51,7 @@ namespace RadarG6_webAPI.Controllers;
 
         // PUT: Pedidos/5
         [HttpPut("{id}")]
+        [Authorize(Roles = "adm")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] Pedido pedido)
         {
             if (id != pedido.Id)
@@ -63,6 +69,7 @@ namespace RadarG6_webAPI.Controllers;
 
         // DELETE: Pedidos/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "adm")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var pedidoDb = (await _servico.TodosAsync()).Find(c => c.Id == id);

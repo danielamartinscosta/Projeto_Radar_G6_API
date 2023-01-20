@@ -1,5 +1,5 @@
 
-namespace RadarG6.DTOs;
+namespace RadarWebApi.Models;
 
 public record AdministradorLogado
 {

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RadarG6.Context;
 
@@ -10,9 +11,11 @@ using RadarG6.Context;
 namespace Radar2._0G6webAPI.Migrations
 {
     [DbContext(typeof(RadarContexto))]
-    partial class RadarContextoModelSnapshot : ModelSnapshot
+    [Migration("20230119191350_CorrecaoNomeTabelas")]
+    partial class CorrecaoNomeTabelas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
