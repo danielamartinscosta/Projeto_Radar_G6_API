@@ -6,11 +6,9 @@ namespace RadarWebApi.DTOs
     public record PedidoProdutoDTO
     {
 
-        public string PedidoId { get; set; } = default!;
-        public Pedido? Pedido { get; set; }
-
-        public string ProdutoId { get; set; } = default!;
-        public Produto? Produto { get; set; }
+        public int PedidoId { get; set; } = default!;
+        
+        public int ProdutoId { get; set; } = default!;
 
         public double Valor { get; set; } = default!;
 

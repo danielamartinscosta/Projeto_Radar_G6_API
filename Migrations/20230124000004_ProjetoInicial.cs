@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Radar2._0G6webAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class inicio : Migration
+    public partial class ProjetoInicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,7 +16,7 @@ namespace Radar2._0G6webAPI.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Administrador",
+                name: "Administradores",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -32,12 +32,12 @@ namespace Radar2._0G6webAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Administrador", x => x.Id);
+                    table.PrimaryKey("PK_Administradores", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Campanha",
+                name: "Campanhas",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -52,7 +52,7 @@ namespace Radar2._0G6webAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Campanha", x => x.Id);
+                    table.PrimaryKey("PK_Campanhas", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -92,7 +92,7 @@ namespace Radar2._0G6webAPI.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Loja",
+                name: "Lojas",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -122,7 +122,7 @@ namespace Radar2._0G6webAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Loja", x => x.Id);
+                    table.PrimaryKey("PK_Lojas", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -151,9 +151,7 @@ namespace Radar2._0G6webAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Campanha = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    CampanhaId1 = table.Column<int>(type: "int", nullable: true),
+                    Campanha = table.Column<int>(type: "int", nullable: false),
                     PosicaoX = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     PosicaoY = table.Column<string>(type: "longtext", nullable: false)
@@ -163,10 +161,11 @@ namespace Radar2._0G6webAPI.Migrations
                 {
                     table.PrimaryKey("PK_PosicoesProdutos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PosicoesProdutos_Campanha_CampanhaId1",
-                        column: x => x.CampanhaId1,
-                        principalTable: "Campanha",
-                        principalColumn: "Id");
+                        name: "FK_PosicoesProdutos_Campanhas_Campanha",
+                        column: x => x.Campanha,
+                        principalTable: "Campanhas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -176,9 +175,7 @@ namespace Radar2._0G6webAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    ClietneId = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ClienteId = table.Column<int>(type: "int", nullable: true),
+                    ClienteId = table.Column<int>(type: "int", nullable: false),
                     ValorTotal = table.Column<double>(type: "double", nullable: false),
                     DataPedido = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
@@ -189,50 +186,49 @@ namespace Radar2._0G6webAPI.Migrations
                         name: "FK_Pedidos_Clientes_ClienteId",
                         column: x => x.ClienteId,
                         principalTable: "Clientes",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "PedidoProduto",
+                name: "PedidoProdutos",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Pedido = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    PedidoId1 = table.Column<int>(type: "int", nullable: true),
-                    Produto = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ProdutoId1 = table.Column<int>(type: "int", nullable: true),
+                    Pedido = table.Column<int>(type: "int", nullable: false),
+                    Produto = table.Column<int>(type: "int", nullable: false),
                     Valor = table.Column<double>(type: "double", nullable: false),
                     Quantidade = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PedidoProduto", x => x.Id);
+                    table.PrimaryKey("PK_PedidoProdutos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PedidoProduto_Pedidos_PedidoId1",
-                        column: x => x.PedidoId1,
+                        name: "FK_PedidoProdutos_Pedidos_Pedido",
+                        column: x => x.Pedido,
                         principalTable: "Pedidos",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PedidoProduto_Produtos_ProdutoId1",
-                        column: x => x.ProdutoId1,
+                        name: "FK_PedidoProdutos_Produtos_Produto",
+                        column: x => x.Produto,
                         principalTable: "Produtos",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PedidoProduto_PedidoId1",
-                table: "PedidoProduto",
-                column: "PedidoId1");
+                name: "IX_PedidoProdutos_Pedido",
+                table: "PedidoProdutos",
+                column: "Pedido");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PedidoProduto_ProdutoId1",
-                table: "PedidoProduto",
-                column: "ProdutoId1");
+                name: "IX_PedidoProdutos_Produto",
+                table: "PedidoProdutos",
+                column: "Produto");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Pedidos_ClienteId",
@@ -240,22 +236,22 @@ namespace Radar2._0G6webAPI.Migrations
                 column: "ClienteId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PosicoesProdutos_CampanhaId1",
+                name: "IX_PosicoesProdutos_Campanha",
                 table: "PosicoesProdutos",
-                column: "CampanhaId1");
+                column: "Campanha");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Administrador");
+                name: "Administradores");
 
             migrationBuilder.DropTable(
-                name: "Loja");
+                name: "Lojas");
 
             migrationBuilder.DropTable(
-                name: "PedidoProduto");
+                name: "PedidoProdutos");
 
             migrationBuilder.DropTable(
                 name: "PosicoesProdutos");
@@ -267,7 +263,7 @@ namespace Radar2._0G6webAPI.Migrations
                 name: "Produtos");
 
             migrationBuilder.DropTable(
-                name: "Campanha");
+                name: "Campanhas");
 
             migrationBuilder.DropTable(
                 name: "Clientes");

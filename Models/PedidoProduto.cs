@@ -15,11 +15,11 @@ namespace RadarWebApi.Models
         public int Id { get; set; } = default!;
 
         [Column("Pedido")]
-        public string PedidoId { get; set; } = default!;
+        public int PedidoId { get; set; } = default!;
         public Pedido? Pedido { get; set; }
 
         [Column("Produto")]
-        public string ProdutoId { get; set; } = default!;
+        public int ProdutoId { get; set; } = default!;
         public Produto? Produto { get; set; }
 
 

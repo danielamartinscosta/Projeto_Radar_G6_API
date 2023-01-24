@@ -11,8 +11,8 @@ using RadarG6.Context;
 namespace Radar2._0G6webAPI.Migrations
 {
     [DbContext(typeof(RadarContexto))]
-    [Migration("20230118223543_inicio")]
-    partial class inicio
+    [Migration("20230124000004_ProjetoInicial")]
+    partial class ProjetoInicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,7 +46,7 @@ namespace Radar2._0G6webAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Administrador");
+                    b.ToTable("Administradores");
                 });
 
             modelBuilder.Entity("RadarWebApi.Models.Campanha", b =>
@@ -76,7 +76,7 @@ namespace Radar2._0G6webAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Campanha");
+                    b.ToTable("Campanhas");
                 });
 
             modelBuilder.Entity("RadarWebApi.Models.Cliente", b =>
@@ -208,7 +208,7 @@ namespace Radar2._0G6webAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Loja");
+                    b.ToTable("Lojas");
                 });
 
             modelBuilder.Entity("RadarWebApi.Models.Pedido", b =>
@@ -218,13 +218,9 @@ namespace Radar2._0G6webAPI.Migrations
                         .HasColumnType("int")
                         .HasColumnName("Id");
 
-                    b.Property<string>("CLienteId")
-                        .IsRequired()
-                        .HasColumnType("longtext")
-                        .HasColumnName("ClietneId");
-
-                    b.Property<int?>("ClienteId")
-                        .HasColumnType("int");
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("int")
+                        .HasColumnName("ClienteId");
 
                     b.Property<DateTime>("DataPedido")
                         .HasColumnType("datetime(6)")
@@ -248,21 +244,13 @@ namespace Radar2._0G6webAPI.Migrations
                         .HasColumnType("int")
                         .HasColumnName("Id");
 
-                    b.Property<string>("PedidoId")
-                        .IsRequired()
-                        .HasColumnType("longtext")
+                    b.Property<int>("PedidoId")
+                        .HasColumnType("int")
                         .HasColumnName("Pedido");
 
-                    b.Property<int?>("PedidoId1")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ProdutoId")
-                        .IsRequired()
-                        .HasColumnType("longtext")
+                    b.Property<int>("ProdutoId")
+                        .HasColumnType("int")
                         .HasColumnName("Produto");
-
-                    b.Property<int?>("ProdutoId1")
-                        .HasColumnType("int");
 
                     b.Property<int>("Quantidade")
                         .HasColumnType("int")
@@ -274,11 +262,11 @@ namespace Radar2._0G6webAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PedidoId1");
+                    b.HasIndex("PedidoId");
 
-                    b.HasIndex("ProdutoId1");
+                    b.HasIndex("ProdutoId");
 
-                    b.ToTable("PedidoProduto");
+                    b.ToTable("PedidoProdutos");
                 });
 
             modelBuilder.Entity("RadarWebApi.Models.PosicaoProduto", b =>
@@ -288,13 +276,9 @@ namespace Radar2._0G6webAPI.Migrations
                         .HasColumnType("int")
                         .HasColumnName("Id");
 
-                    b.Property<string>("CampanhaId")
-                        .IsRequired()
-                        .HasColumnType("longtext")
+                    b.Property<int>("CampanhaId")
+                        .HasColumnType("int")
                         .HasColumnName("Campanha");
-
-                    b.Property<int?>("CampanhaId1")
-                        .HasColumnType("int");
 
                     b.Property<string>("PosicaoX")
                         .IsRequired()
@@ -308,7 +292,7 @@ namespace Radar2._0G6webAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CampanhaId1");
+                    b.HasIndex("CampanhaId");
 
                     b.ToTable("PosicoesProdutos");
                 });
@@ -347,7 +331,9 @@ namespace Radar2._0G6webAPI.Migrations
                 {
                     b.HasOne("RadarWebApi.Models.Cliente", "Cliente")
                         .WithMany()
-                        .HasForeignKey("ClienteId");
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Cliente");
                 });
@@ -356,11 +342,15 @@ namespace Radar2._0G6webAPI.Migrations
                 {
                     b.HasOne("RadarWebApi.Models.Pedido", "Pedido")
                         .WithMany()
-                        .HasForeignKey("PedidoId1");
+                        .HasForeignKey("PedidoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("RadarWebApi.Models.Produto", "Produto")
                         .WithMany()
-                        .HasForeignKey("ProdutoId1");
+                        .HasForeignKey("ProdutoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Pedido");
 
@@ -371,7 +361,9 @@ namespace Radar2._0G6webAPI.Migrations
                 {
                     b.HasOne("RadarWebApi.Models.Campanha", "Campanha")
                         .WithMany()
-                        .HasForeignKey("CampanhaId1");
+                        .HasForeignKey("CampanhaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Campanha");
                 });

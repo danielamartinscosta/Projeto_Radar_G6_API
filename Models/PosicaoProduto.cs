@@ -15,7 +15,7 @@ namespace RadarWebApi.Models
         public int Id { get; set; } = default!;
 
         [Column("Campanha")]
-        public string CampanhaId { get; set; } = default!;
+        public int CampanhaId { get; set; } = default!;
         public Campanha? Campanha { get; set; }
 
         [Column("PosicaoX")]

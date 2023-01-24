@@ -15,8 +15,8 @@ namespace RadarWebApi.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; } = default!;
 
-        [Column("ClietneId")]
-        public string CLienteId { get; set; } = default!;
+        [Column("ClienteId")]
+        public int ClienteId { get; set; } = default!;
         public Cliente? Cliente { get; set; }
 
         [Column("ValorTotal")]
