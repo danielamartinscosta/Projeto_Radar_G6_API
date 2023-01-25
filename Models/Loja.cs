@@ -29,7 +29,7 @@ namespace RadarWebApi.Models
         public string Numero { get; set; } = default!;
 
         [Column("Complemento")]
-        public string Complemento { get; set; } = default!;
+        public string? Complemento { get; set; }
 
         [Column("Bairro")]
         public string Bairro { get; set; } = default!;

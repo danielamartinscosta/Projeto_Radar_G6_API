@@ -165,7 +165,6 @@ namespace Radar2._0G6webAPI.Migrations
                         .HasColumnName("Cidade");
 
                     b.Property<string>("Complemento")
-                        .IsRequired()
                         .HasColumnType("longtext")
                         .HasColumnName("Complemento");
 

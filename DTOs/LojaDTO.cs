@@ -14,7 +14,7 @@ namespace RadarWebApi.DTOs
 
         public string Numero { get; set; } = default!;
 
-        public string Complemento { get; set; } = default!;
+        public string? Complemento { get; set; }
 
         public string Bairro { get; set; } = default!;
 

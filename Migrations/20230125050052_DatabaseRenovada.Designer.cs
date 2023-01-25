@@ -11,8 +11,8 @@ using RadarG6.Context;
 namespace Radar2._0G6webAPI.Migrations
 {
     [DbContext(typeof(RadarContexto))]
-    [Migration("20230124000004_ProjetoInicial")]
-    partial class ProjetoInicial
+    [Migration("20230125050052_DatabaseRenovada")]
+    partial class DatabaseRenovada
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -168,7 +168,6 @@ namespace Radar2._0G6webAPI.Migrations
                         .HasColumnName("Cidade");
 
                     b.Property<string>("Complemento")
-                        .IsRequired()
                         .HasColumnType("longtext")
                         .HasColumnName("Complemento");
 
