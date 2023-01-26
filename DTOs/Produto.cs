@@ -16,6 +16,7 @@ namespace RadarWebApi.DTOs
         public double Valor { get; set; } = default!;
 
         public int QuantidadeEstoque { get; set; } = default!;
+        public string? Foto { get; set; }
 
 
     }

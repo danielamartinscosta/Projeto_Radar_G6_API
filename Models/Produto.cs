@@ -26,6 +26,9 @@ namespace RadarWebApi.Models
         [Column("QuantidadeEstoque")]
         public int QuantidadeEstoque { get; set; } = default!;
 
+        [Column("Foto")]
+        public string? Foto { get; set; }
+
 
     }
 
