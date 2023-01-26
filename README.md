@@ -15,9 +15,48 @@
 |  Daniela M. Costa | Diego M. Lopes | Eric M. Nagao | Filipe M. Moreira | Jonathan Tenório  |  Sérgio Alves  | 
 
 
+##
+
+<div align="center">
+<a href="https://github.com/danielamartinscosta/Projeto_Radar_G6_Front-end" _blank >LINK Angular</a>
+</div>
 
 ##
+
+<h2> 💻 EndPoints </h2>
+
+- Produtos;
+- Clientes;
+- Pedidos;
+- PedidosProdutos;
+- Campanhas;
+- Lojas;
+- PosicoesProdutos;
+
+##
+
+<h2> 💻 Banco de Dados </h2>
+
+
+![banco de dados](https://user-images.githubusercontent.com/84486574/214845771-c03caa25-0786-41a5-9f45-80b3e7df2ae8.png)
+
+
+<h2> 💻 Estrutura do código API </h2>
+
+![estrutura](https://user-images.githubusercontent.com/84486574/214841598-9584ae52-0104-4fd4-b515-f79283f01f83.PNG)
+
+##
+
 
 <h2> 💻 Organização API </h2>
 
 ![Screenshot 2023-01-25 at 23-15-43 Swagger UI](https://user-images.githubusercontent.com/84486574/214775671-2df8f652-1dc1-4011-9830-8bc95a974506.png)
+
+##
+
+<h2> 🤝 Agradecimentos</h2>
+
+<p>Agradecemos às empresas Febrafar e Farmacas que, em parceria com a Gama Academy, deu-nos a oportunidade de participarmos dessa maravilhosa iniciativa chamada Código do Futuro. Agradecemostambém ao nosso Professor Danilo Aparecido, que tem compartilhado conosco, seu vasto conhecimento e nos tornando melhores, pelo menos 1% a cada dia e a Nossa Yellow Belt Carina Aguiar, que sempre nos mantém atualizados e nos ajuda no que precisarmos. </p>
+<p> <strong> A todos vocês, o nosso Muito Obrigado!</strong> </p>
+
+
